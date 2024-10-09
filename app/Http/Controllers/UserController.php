@@ -12,7 +12,7 @@ class UserController extends Controller
             return $this->responseOnError(404,"Data Not Found!");
         } else {
             try{
-                $user = User::findOrFail($id);
+                $user = User::with('posts','comments')->findOrFail($id);
                 return $this->responseOnSuccess(200,$user);
             } catch (\Exception $e){
                 return $this->responseOnError(404,"Error! ->".$e);

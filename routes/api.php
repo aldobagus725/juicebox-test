@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
    
 Route::controller(AuthController::class)->group(function(){
@@ -19,6 +20,11 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::post('/posts', 'store');
         Route::patch('/posts/{id}', 'update');
         Route::delete('/posts/{id}', 'destroy');
+    });
+    Route::controller(CommentController::class)->group(function(){
+        Route::get('/comments/{id}', 'show');
+        Route::get('/comments/{id}/post', 'showCommentByPostId');
+        Route::post('/comments', 'store');
     });
     Route::controller(UserController::class)->group(function(){
         Route::get('/user/detail/{id}', 'detail');

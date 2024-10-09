@@ -21,7 +21,8 @@ class PostController extends Controller
                             })
                             ->when($permissionCheck, function($query) use($user_id){
                                 $query->where('user_id',$user_id);
-                            })->paginate(20);
+                            })
+                            ->with('comments')->paginate(20);
             return $this->responseOnSuccess(200,$posts);
         } catch (\Exception $e){
             return $this->responseOnError(404,"Not Found!");
